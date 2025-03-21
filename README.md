@@ -18,3 +18,5 @@
 1️⃣ Установите зависимости:  
 ```bash
 pip install openai python-dotenv
+pip install -r requirements.txt ( для установки зависимостей)
+
