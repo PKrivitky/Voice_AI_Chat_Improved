@@ -2,19 +2,20 @@ import asyncio
 import logging
 from aiogram import Bot, Dispatcher
 from aiogram.client.default import DefaultBotProperties
-from config import BOT_TOKEN
-from handlers import register_handlers  # Импортируем функцию регистрации обработчиков
+from config import settings
+from handlers import register_handlers
+from assistant import create_assistant
 
 async def main():
+    assistant = await create_assistant()
+    settings.ASSISTANT_ID = assistant.id
     logging.basicConfig(level=logging.INFO)
     logger = logging.getLogger(__name__)
     logger.info('Starting bot...')
 
-    # Создаём бота и диспетчер
-    bot = Bot(token=BOT_TOKEN, default=DefaultBotProperties(parse_mode='HTML'))
+    bot = Bot(token=settings.BOT_TOKEN, default=DefaultBotProperties(parse_mode='HTML'))
     dp = Dispatcher()
 
-    # Добавляем бота в контекст (чтобы он был доступен в обработчиках)
     dp["bot"] = bot
 
     # Регистрируем обработчики
